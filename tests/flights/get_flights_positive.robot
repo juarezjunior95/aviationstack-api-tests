@@ -37,3 +37,11 @@ Error to get flights by date
     ...    {"limit": 10, "flight_status": "active", "dep_iata": "GRU", "flight_date": "2026-01-15"}
     ...    403
     Then response should contain authentication error
+
+Error to get flights by date fail test
+     Given I have a valid AviationStack session
+    Given I have a valid API key    cfd77ccd4625cab36017fd91699579a1
+    When I perform a GET request to flights endpoint
+    ...    {"limit": 10, "flight_status": "active", "dep_iata": "GRU", "flight_date": "2026-01-15"}
+    ...    200
+    Then response should contain authentication error
