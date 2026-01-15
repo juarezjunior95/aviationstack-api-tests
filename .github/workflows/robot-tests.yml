@@ -38,11 +38,41 @@ jobs:
           name: robot-report
           path: results/
 
-      - name: Notify Slack
-        if: always() # Garante que envia notificação mesmo se o teste falhar
+      - name: Extract Robot Framework Results
+        if: always()
         run: |
-          # Define a cor e o ícone baseado no status do job
-          if [ "${{ job.status }}" == "success" ]; then
+          # Extrai os dados do XML usando Python
+          STATS=$(python3 -c "import xml.etree.ElementTree as ET; \
+            tree = ET.parse('results/output.xml'); \
+            root = tree.getroot(); \
+            stats = root.find('.//total/stat'); \
+            print(f'{stats.get(\"pass\")},{stats.get(\"fail\")},{stats.get(\"skip\")}')")
+          
+          # Salva em variáveis de ambiente do GitHub
+          echo "PASSED=$(echo $STATS | cut -d',' -f1)" >> $GITHUB_ENV
+          echo "FAILED=$(echo $STATS | cut -d',' -f2)" >> $GITHUB_ENV
+          echo "SKIPPED=$(echo $STATS | cut -d',' -f3)" >> $GITHUB_ENV
+          
+          # Calcula o tempo total de execução do Job (opcional, já que o GitHub mostra os 53s na tela)
+          # Mas aqui extraímos o tempo real de execução dos testes
+          echo "TEST_TIME=$(python3 -c \"import xml.etree.ElementTree as ET; tree = ET.parse('results/output.xml'); root = tree.getroot(); suite = root.find('.//suite'); print(suite.get('elapsed') if suite.get('elapsed') else 'N/A')\")\" >> $GITHUB_ENV
+
+      - name: Generate GitHub Step Summary
+        if: always()
+        run: |
+          echo "### 📊 Resultado dos Testes Robot" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | Quantidade |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| ✅ Passados | ${{ env.PASSED }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ❌ Falhos | ${{ env.FAILED }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ⏭️ Pulados | ${{ env.SKIPPED }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Duração total dos testes:** ${{ env.TEST_TIME }}s" >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify Slack
+        if: always()
+        run: |
+          if [ "${{ env.FAILED }}" == "0" ]; then
             COLOR="good"
             ICON="✅"
           else
@@ -50,16 +80,15 @@ jobs:
             ICON="❌"
           fi
 
-          # Monta o JSON para o Slack com link para o workflow
           curl -X POST -H 'Content-type: application/json' \
           --data "{
             \"attachments\": [
               {
                 \"color\": \"$COLOR\",
-                \"title\": \"$ICON Robot Framework API Tests: ${{ job.status }}\",
+                \"title\": \"$ICON Robot Framework: ${{ env.PASSED }} Passou | ${{ env.FAILED }} Falhou\",
                 \"title_link\": \"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\",
-                \"text\": \"*Repositório:* ${{ github.repository }}\n*Branch:* \`${{ github.ref_name }}\`\",
-                \"footer\": \"GitHub Actions notification\"
+                \"text\": \"*Repositório:* ${{ github.repository }}\n*Ambiente:* \`${{ github.ref_name }}\`\n*Duração:* ${{ env.TEST_TIME }}s\n\n*Sumário:* ✅ ${{ env.PASSED }} | ❌ ${{ env.FAILED }} | ⏭️ ${{ env.SKIPPED }}\",
+                \"footer\": \"GitHub Actions Report\"
               }
             ]
           }" \
