@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.13.4 on darwin)" generated="2026-01-15T16:13:02.933907" rpa="false" schemaversion="5">
+<suite id="s1" name="Changelles" source="/Users/jfranccr/Documents/projetos/changelles">
+<suite id="s1-s1" name="Tests" source="/Users/jfranccr/Documents/projetos/changelles/tests">
+<suite id="s1-s1-s1" name="Flights" source="/Users/jfranccr/Documents/projetos/changelles/tests/flights">
+<suite id="s1-s1-s1-s1" name="Get Flights Positive" source="/Users/jfranccr/Documents/projetos/changelles/tests/flights/get_flights_positive.robot">
+<test id="s1-s1-s1-s1-t1" name="Get active flights from GRU" line="5">
+<kw name="Given I have a valid AviationStack session" owner="aviationstack_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:03.228021" level="INFO">Creating Session using : alias=aviation, url=https://api.aviationstack.com/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>aviation</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-15T16:13:03.227553" elapsed="0.000827"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:03.226910" elapsed="0.001718"/>
+</kw>
+<kw name="Given I have a valid API key" owner="aviationstack_keywords">
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:03.230317" level="INFO">${API_KEY} = cfd77ccd4625cab36017fd91699579a1</msg>
+<arg>${API_KEY}</arg>
+<arg>${api_key}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:03.229756" elapsed="0.000730"/>
+</kw>
+<arg>cfd77ccd4625cab36017fd91699579a1</arg>
+<status status="PASS" start="2026-01-15T16:13:03.229219" elapsed="0.001461"/>
+</kw>
+<kw name="When I perform a GET request to flights endpoint" owner="aviationstack_keywords">
+<kw name="Set To Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:03.233394" level="INFO">${params} = {'limit': 10, 'flight_status': 'active', 'dep_iata': 'GRU', 'access_key': 'cfd77ccd4625cab36017fd91699579a1'}</msg>
+<var>${params}</var>
+<arg>${query_params}</arg>
+<arg>access_key=${API_KEY}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2026-01-15T16:13:03.232768" elapsed="0.000747"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:04.002502" level="INFO">GET Request : url=https://api.aviationstack.com/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=GRU&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ path_url=/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=GRU&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-01-15T16:13:04.003103" level="INFO">GET Response : url=https://api.aviationstack.com/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=GRU&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 15 Jan 2026 19:13:04 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'cache-control': 'no-cache, private', 'x-request-time': '0.101, 0.139', 'x-apilayer-transaction-id': '039ce0bf-21af-4569-8682-0ad60a00444c', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'GET, POST, HEAD, OPTIONS', 'access-control-allow-headers': '*', 'x-quota-limit': '100', 'x-quota-remaining': '74', 'x-increment-usage': '1', 'cf-cache-status': 'DYNAMIC', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=IbmxdK%2FyK0MGlUOxPBXexlp5C6TSbPmNw2hJtF90v2a%2BfBWjUscFvXqa%2F38LXw46q7iV9yWLQhRH6W2S9xffhe2ceyMh%2BgqxDVbhuWQ%2FOVJbrNtp"}]}', 'Content-Encoding': 'gzip', 'Server': 'cloudflare', 'CF-RAY': '9be7b02d3ceeb92f-GRU'} 
+ body={"pagination":{"limit":10,"offset":0,"count":10,"total":185},"data":[{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"2","gate":"250","delay":null,"scheduled":"2026-01-15T14:10:00+00:00","estimated":"2026-01-15T14:10:00+00:00","actual":"2026-01-15T14:23:00+00:00","estimated_runway":"2026-01-15T14:23:00+00:00","actual_runway":"2026-01-15T14:23:00+00:00"},"arrival":{"airport":"Augusto Severo","timezone":"America\/Fortaleza","iata":"NAT","icao":"SBSG","terminal":null,"gate":null,"baggage":null,"scheduled":"2026-01-15T17:40:00+00:00","delay":null,"estimated":"2026-01-15T17:22:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"TAP Air Portugal","iata":"TP","icao":"TAP"},"flight":{"number":"4157","iata":"TP4157","icao":"TAP4157","codeshared":{"airline_name":"gol","airline_iata":"g3","airline_icao":"glo","flight_number":"1588","flight_iata":"g31588","flight_icao":"glo1588"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E497E7"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"2","gate":"250","delay":null,"scheduled":"2026-01-15T14:10:00+00:00","estimated":"2026-01-15T14:10:00+00:00","actual":"2026-01-15T14:23:00+00:00","estimated_runway":"2026-01-15T14:23:00+00:00","actual_runway":"2026-01-15T14:23:00+00:00"},"arrival":{"airport":"Augusto Severo","timezone":"America\/Fortaleza","iata":"NAT","icao":"SBSG","terminal":null,"gate":null,"baggage":null,"scheduled":"2026-01-15T17:40:00+00:00","delay":null,"estimated":"2026-01-15T17:22:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"Copa Airlines","iata":"CM","icao":"CMP"},"flight":{"number":"3526","iata":"CM3526","icao":"CMP3526","codeshared":{"airline_name":"gol","airline_iata":"g3","airline_icao":"glo","flight_number":"1588","flight_iata":"g31588","flight_icao":"glo1588"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E497E7"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"2","gate":"250","delay":null,"scheduled":"2026-01-15T14:10:00+00:00","estimated":"2026-01-15T14:10:00+00:00","actual":"2026-01-15T14:23:00+00:00","estimated_runway":"2026-01-15T14:23:00+00:00","actual_runway":"2026-01-15T14:23:00+00:00"},"arrival":{"airport":"Augusto Severo","timezone":"America\/Fortaleza","iata":"NAT","icao":"SBSG","terminal":null,"gate":null,"baggage":null,"scheduled":"2026-01-15T17:40:00+00:00","delay":null,"estimated":"2026-01-15T17:22:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"Royal Air Maroc","iata":"AT","icao":"RAM"},"flight":{"number":"9077","iata":"AT9077","icao":"RAM9077","codeshared":{"airline_name":"gol","airline_iata":"g3","airline_icao":"glo","flight_number":"1588","flight_iata":"g31588","flight_icao":"glo1588"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E497E7"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"2","gate":"212","delay":null,"scheduled":"2026-01-15T15:20:00+00:00","estimated":"2026-01-15T15:20:00+00:00","actual":"2026-01-15T15:39:00+00:00","estimated_runway":"2026-01-15T15:39:00+00:00","actual_runway":"2026-01-15T15:39:00+00:00"},"arrival":{"airport":"Galeao Antonio Carlos Jobim","timezone":"America\/Sao_Paulo","iata":"GIG","icao":"SBGL","terminal":"2","gate":null,"baggage":null,"scheduled":"2026-01-15T16:20:00+00:00","delay":null,"estimated":"2026-01-15T16:20:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"Delta Air Lines","iata":"DL","icao":"DAL"},"flight":{"number":"6119","iata":"DL6119","icao":"DAL6119","codeshared":{"airline_name":"latam airlines","airline_iata":"la","airline_icao":"lan","flight_number":"4548","flight_iata":"la4548","flight_icao":"lan4548"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E491AE"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"3","gate":"F","delay":13,"scheduled":"2026-01-15T14:05:00+00:00","estimated":"2026-01-15T14:05:00+00:00","actual":"2026-01-15T14:43:00+00:00","estimated_runway":"2026-01-15T14:43:00+00:00","actual_runway":"2026-01-15T14:43:00+00:00"},"arrival":{"airport":"Aeroparque Jorge Newbery","timezone":"America\/Argentina\/Buenos_Aires","iata":"AEP","icao":"SABE","terminal":null,"gate":null,"baggage":null,"scheduled":"2026-01-15T17:00:00+00:00","delay":13,"estimated":"2026-01-15T17:13:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"Qatar Airways","iata":"QR","icao":"QTR"},"flight":{"number":"7252","iata":"QR7252","icao":"QTR7252","codeshared":{"airline_name":"latam airlines","airline_iata":"la","airline_icao":"lan","flight_number":"8034","flight_iata":"la8034","flight_icao":"lan8034"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E49AA8"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"1","gate":"A","delay":null,"scheduled":"2026-01-15T14:10:00+00:00","estimated":"2026-01-15T14:10:00+00:00","actual":"2026-01-15T14:18:00+00:00","estimated_runway":"2026-01-15T14:18:00+00:00","actual_runway":"2026-01-15T14:18:00+00:00"},"arrival":{"airport":"Guararapes International","timezone":"America\/Recife","iata":"REC","icao":"SBRF","terminal":null,"gate":null,"baggage":"S06","scheduled":"2026-01-15T17:15:00+00:00","delay":null,"estimated":"2026-01-15T17:03:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"Air Europa","iata":"UX","icao":"AEA"},"flight":{"number":"2924","iata":"UX2924","icao":"AEA2924","codeshared":{"airline_name":"azul","airline_iata":"ad","airline_icao":"azu","flight_number":"2764","flight_iata":"ad2764","flight_icao":"azu2764"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E49866"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"1","gate":"A","delay":null,"scheduled":"2026-01-15T14:10:00+00:00","estimated":"2026-01-15T14:10:00+00:00","actual":"2026-01-15T14:18:00+00:00","estimated_runway":"2026-01-15T14:18:00+00:00","actual_runway":"2026-01-15T14:18:00+00:00"},"arrival":{"airport":"Guararapes International","timezone":"America\/Recife","iata":"REC","icao":"SBRF","terminal":null,"gate":null,"baggage":"S06","scheduled":"2026-01-15T17:15:00+00:00","delay":null,"estimated":"2026-01-15T17:03:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"United Airlines","iata":"UA","icao":"UAL"},"flight":{"number":"7373","iata":"UA7373","icao":"UAL7373","codeshared":{"airline_name":"azul","airline_iata":"ad","airline_icao":"azu","flight_number":"2764","flight_iata":"ad2764","flight_icao":"azu2764"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E49866"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"1","gate":"A","delay":null,"scheduled":"2026-01-15T14:10:00+00:00","estimated":"2026-01-15T14:10:00+00:00","actual":"2026-01-15T14:18:00+00:00","estimated_runway":"2026-01-15T14:18:00+00:00","actual_runway":"2026-01-15T14:18:00+00:00"},"arrival":{"airport":"Guararapes International","timezone":"America\/Recife","iata":"REC","icao":"SBRF","terminal":null,"gate":null,"baggage":"S06","scheduled":"2026-01-15T17:15:00+00:00","delay":null,"estimated":"2026-01-15T17:03:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"SA AVIANCA","iata":"AV","icao":"AVA"},"flight":{"number":"4388","iata":"AV4388","icao":"AVA4388","codeshared":{"airline_name":"azul","airline_iata":"ad","airline_icao":"azu","flight_number":"2764","flight_iata":"ad2764","flight_icao":"azu2764"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E49866"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"2","gate":"261","delay":null,"scheduled":"2026-01-15T14:30:00+00:00","estimated":"2026-01-15T14:30:00+00:00","actual":"2026-01-15T14:38:00+00:00","estimated_runway":"2026-01-15T14:38:00+00:00","actual_runway":"2026-01-15T14:38:00+00:00"},"arrival":{"airport":"Castro Pinto","timezone":"America\/Fortaleza","iata":"JPA","icao":"SBJP","terminal":"2","gate":null,"baggage":"E03","scheduled":"2026-01-15T17:45:00+00:00","delay":null,"estimated":"2026-01-15T17:33:00+00:00","actual":null,"estimated_runway":null,"actual_runway":null},"airline":{"name":"TAP Air Portugal","iata":"TP","icao":"TAP"},"flight":{"number":"4153","iata":"TP4153","icao":"TAP4153","codeshared":{"airline_name":"gol","airline_iata":"g3","airline_icao":"glo","flight_number":"1632","flight_iata":"g31632","flight_icao":"glo1632"}},"aircraft":{"registration":null,"iata":null,"icao":null,"icao24":"E49EEB"},"live":null},{"flight_date":"2026-01-15","flight_status":"active","departure":{"airport":"Aeroporto Internacional Guarulhos","timezone":"America\/Sao_Paulo","iata":"GRU","icao":"SBGR","terminal":"2","gate":"261","delay":null,"scheduled":"2026-01-... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2026-01-15T16:13:04.004485" level="INFO">/Users/jfranccr/Documents/projetos/changelles/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.aviationstack.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-15T16:13:04.005112" level="INFO">${response_get} = &lt;Response [200]&gt;</msg>
+<var>${response_get}</var>
+<arg>${BASE_URL}${FLIGHTS_ENDPOINT}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>verify=${False}</arg>
+<arg>params=${params}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-01-15T16:13:03.233703" elapsed="0.771681"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.008055" level="INFO">${response_get} = &lt;Response [200]&gt;</msg>
+<arg>${response_get}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.006115" elapsed="0.002249"/>
+</kw>
+<arg>{"limit": 10, "flight_status": "active", "dep_iata": "GRU"}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-01-15T16:13:03.231809" elapsed="0.776872"/>
+</kw>
+<kw name="Then response status code should be" owner="aviationstack_keywords">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.011774" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response_get.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.010177" elapsed="0.002137"/>
+</kw>
+<arg>200</arg>
+<status status="PASS" start="2026-01-15T16:13:04.009327" elapsed="0.003293"/>
+</kw>
+<kw name="Then response body should not be empty" owner="aviationstack_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.016515" level="INFO">${json} = {'pagination': {'limit': 10, 'offset': 0, 'count': 10, 'total': 185}, 'data': [{'flight_date': '2026-01-15', 'flight_status': 'active', 'departure': {'airport': 'Aeroporto Internacional Guarulhos', 't...</msg>
+<var>${json}</var>
+<arg>${response_get.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.014238" elapsed="0.002504"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:04.017841" level="INFO">${data} = [{'flight_date': '2026-01-15', 'flight_status': 'active', 'departure': {'airport': 'Aeroporto Internacional Guarulhos', 'timezone': 'America/Sao_Paulo', 'iata': 'GRU', 'icao': 'SBGR', 'terminal': '2',...</msg>
+<var>${data}</var>
+<arg>${json}</arg>
+<arg>data</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.017087" elapsed="0.000901"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.019705" level="INFO">Length is 10.</msg>
+<arg>${data}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.018230" elapsed="0.001758"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:04.013297" elapsed="0.006914"/>
+</kw>
+<kw name="Then response should contain departure iata" owner="aviationstack_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.022919" level="INFO">${json} = {'pagination': {'limit': 10, 'offset': 0, 'count': 10, 'total': 185}, 'data': [{'flight_date': '2026-01-15', 'flight_status': 'active', 'departure': {'airport': 'Aeroporto Internacional Guarulhos', 't...</msg>
+<var>${json}</var>
+<arg>${response_get.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.021410" elapsed="0.001890"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:04.024360" level="INFO">${data} = [{'flight_date': '2026-01-15', 'flight_status': 'active', 'departure': {'airport': 'Aeroporto Internacional Guarulhos', 'timezone': 'America/Sao_Paulo', 'iata': 'GRU', 'icao': 'SBGR', 'terminal': '2',...</msg>
+<var>${data}</var>
+<arg>${json}</arg>
+<arg>data</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.023623" elapsed="0.000922"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-01-15T16:13:04.025282" level="INFO">${first_flight} = {'flight_date': '2026-01-15', 'flight_status': 'active', 'departure': {'airport': 'Aeroporto Internacional Guarulhos', 'timezone': 'America/Sao_Paulo', 'iata': 'GRU', 'icao': 'SBGR', 'terminal': '2', ...</msg>
+<var>${first_flight}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.024803" elapsed="0.000625"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:04.026055" level="INFO">${departure} = {'airport': 'Aeroporto Internacional Guarulhos', 'timezone': 'America/Sao_Paulo', 'iata': 'GRU', 'icao': 'SBGR', 'terminal': '2', 'gate': '250', 'delay': None, 'scheduled': '2026-01-15T14:10:00+00:00'...</msg>
+<var>${departure}</var>
+<arg>${first_flight}</arg>
+<arg>departure</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.025668" elapsed="0.000506"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:04.026720" level="INFO">${iata} = GRU</msg>
+<var>${iata}</var>
+<arg>${departure}</arg>
+<arg>iata</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.026375" elapsed="0.000461"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${iata}</arg>
+<arg>${expected_iata}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.027045" elapsed="0.000862"/>
+</kw>
+<arg>GRU</arg>
+<status status="PASS" start="2026-01-15T16:13:04.020768" elapsed="0.007342"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:03.222329" elapsed="0.806072"/>
+</test>
+<test id="s1-s1-s1-s1-t2" name="Get flights with invalid API key" line="15">
+<kw name="Given I have a valid AviationStack session" owner="aviationstack_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:04.041195" level="INFO">Creating Session using : alias=aviation, url=https://api.aviationstack.com/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>aviation</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-15T16:13:04.040869" elapsed="0.000608"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:04.040273" elapsed="0.001352"/>
+</kw>
+<kw name="Given I have an invalid API key" owner="aviationstack_keywords">
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.043483" level="INFO">${API_KEY} = invalid_key_123</msg>
+<arg>${API_KEY}</arg>
+<arg>invalid_key_123</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.042665" elapsed="0.001641"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:04.042139" elapsed="0.002487"/>
+</kw>
+<kw name="When I perform a GET request to flights endpoint" owner="aviationstack_keywords">
+<kw name="Set To Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:04.046442" level="INFO">${params} = {'limit': 5, 'access_key': 'invalid_key_123'}</msg>
+<var>${params}</var>
+<arg>${query_params}</arg>
+<arg>access_key=${API_KEY}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.045775" elapsed="0.000805"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:04.639189" level="INFO">GET Request : url=https://api.aviationstack.com/v1/flights?limit=5&amp;access_key=invalid_key_123 
+ path_url=/v1/flights?limit=5&amp;access_key=invalid_key_123 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-01-15T16:13:04.639706" level="INFO">GET Response : url=https://api.aviationstack.com/v1/flights?limit=5&amp;access_key=invalid_key_123 
+ status=401, reason=Unauthorized 
+ headers={'Date': 'Thu, 15 Jan 2026 19:13:04 GMT', 'Content-Type': 'application/json; Charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'cache-control': 'no-cache', 'access-control-allow-methods': 'GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS', 'access-control-allow-origin': '*', 'x-blocked-at-loadbalancer': '1', 'cf-cache-status': 'DYNAMIC', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=n1FSnR5IQCzQcVgsuGMR38cL0VSpanYMjpeVaxXRVoogRzoRYv95qEIzRrv0aOMx5S7wTPS2UmgRO5qUwBfqkFY2h7%2FMBRMh7%2B3ivQm2a%2BfYQ5TY"}]}', 'Server': 'cloudflare', 'CF-RAY': '9be7b031e89db92f-GRU'} 
+ body={
+  "error": {
+    "code": "invalid_access_key",
+    "message": "You have not supplied a valid API Access Key. [Technical Support: support@apilayer.com]"
+  }
+}
+ 
+ </msg>
+<msg time="2026-01-15T16:13:04.640072" level="INFO">/Users/jfranccr/Documents/projetos/changelles/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.aviationstack.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-15T16:13:04.641136" level="INFO">${response_get} = &lt;Response [401]&gt;</msg>
+<var>${response_get}</var>
+<arg>${BASE_URL}${FLIGHTS_ENDPOINT}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>verify=${False}</arg>
+<arg>params=${params}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.046972" elapsed="0.594589"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.643736" level="INFO">${response_get} = &lt;Response [401]&gt;</msg>
+<arg>${response_get}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.642133" elapsed="0.001994"/>
+</kw>
+<arg>{"limit": 5}</arg>
+<arg>401</arg>
+<status status="PASS" start="2026-01-15T16:13:04.045240" elapsed="0.599276"/>
+</kw>
+<kw name="Then response status code should be" owner="aviationstack_keywords">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.648847" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response_get.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.646699" elapsed="0.002542"/>
+</kw>
+<arg>401</arg>
+<status status="PASS" start="2026-01-15T16:13:04.645435" elapsed="0.004272"/>
+</kw>
+<kw name="Then response should contain authentication error" owner="aviationstack_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.652462" level="INFO">${json} = {'error': {'code': 'invalid_access_key', 'message': 'You have not supplied a valid API Access Key. [Technical Support: support@apilayer.com]'}}</msg>
+<var>${json}</var>
+<arg>${response_get.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.651230" elapsed="0.001416"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${json}</arg>
+<arg>error</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.652925" elapsed="0.000421"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:04.650367" elapsed="0.003169"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:04.036510" elapsed="0.617378"/>
+</test>
+<test id="s1-s1-s1-s1-t3" name="Get flights with invalid place" line="24">
+<kw name="Given I have a valid AviationStack session" owner="aviationstack_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:04.734550" level="INFO">Creating Session using : alias=aviation, url=https://api.aviationstack.com/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>aviation</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-15T16:13:04.734146" elapsed="0.000691"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:04.733132" elapsed="0.001857"/>
+</kw>
+<kw name="Given I have a valid API key" owner="aviationstack_keywords">
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:04.737807" level="INFO">${API_KEY} = cfd77ccd4625cab36017fd91699579a1</msg>
+<arg>${API_KEY}</arg>
+<arg>${api_key}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.737233" elapsed="0.000791"/>
+</kw>
+<arg>cfd77ccd4625cab36017fd91699579a1</arg>
+<status status="PASS" start="2026-01-15T16:13:04.735688" elapsed="0.002493"/>
+</kw>
+<kw name="When I perform a GET request to flights endpoint" owner="aviationstack_keywords">
+<kw name="Set To Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:04.740207" level="INFO">${params} = {'limit': 10, 'flight_status': 'active', 'dep_iata': 'INVALID', 'access_key': 'cfd77ccd4625cab36017fd91699579a1'}</msg>
+<var>${params}</var>
+<arg>${query_params}</arg>
+<arg>access_key=${API_KEY}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.739523" elapsed="0.001028"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:05.383243" level="INFO">GET Request : url=https://api.aviationstack.com/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=INVALID&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ path_url=/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=INVALID&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-01-15T16:13:05.383960" level="INFO">GET Response : url=https://api.aviationstack.com/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=INVALID&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ status=200, reason=OK 
+ headers={'Date': 'Thu, 15 Jan 2026 19:13:05 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'cache-control': 'no-cache, private', 'x-request-time': '0.026, 0.061', 'x-apilayer-transaction-id': '743ab4c2-df5f-482c-a179-e3e72a23d5d7', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'GET, POST, HEAD, OPTIONS', 'access-control-allow-headers': '*', 'x-quota-limit': '100', 'x-quota-remaining': '73', 'x-increment-usage': '1', 'cf-cache-status': 'DYNAMIC', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=j3RUucMo3lgNeV2Gk95G8nn3GNuVrXDBIDJ8UBfEhkNVFQ2iAOsOeXjIGwakSloWL308kQ6Drfvu7rrcHZOntxkp4qlRaG4IVM%2BnL2mheWKrD3Ha"}]}', 'Content-Encoding': 'gzip', 'Server': 'cloudflare', 'CF-RAY': '9be7b0364b84b92f-GRU'} 
+ body={"pagination":{"limit":10,"offset":0,"count":0,"total":0},"data":[]} 
+ </msg>
+<msg time="2026-01-15T16:13:05.384425" level="INFO">/Users/jfranccr/Documents/projetos/changelles/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.aviationstack.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-15T16:13:05.386137" level="INFO">${response_get} = &lt;Response [200]&gt;</msg>
+<var>${response_get}</var>
+<arg>${BASE_URL}${FLIGHTS_ENDPOINT}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>verify=${False}</arg>
+<arg>params=${params}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-01-15T16:13:04.740774" elapsed="0.645656"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:05.389484" level="INFO">${response_get} = &lt;Response [200]&gt;</msg>
+<arg>${response_get}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.386996" elapsed="0.003057"/>
+</kw>
+<arg>{"limit": 10, "flight_status": "active", "dep_iata": "INVALID"}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-01-15T16:13:04.738945" elapsed="0.651649"/>
+</kw>
+<kw name="Then response status code should be" owner="aviationstack_keywords">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-15T16:13:05.394140" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response_get.status_code}</arg>
+<arg>${expected_status}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.392712" elapsed="0.001723"/>
+</kw>
+<arg>200</arg>
+<status status="PASS" start="2026-01-15T16:13:05.391723" elapsed="0.002970"/>
+</kw>
+<kw name="Then response body should be empty" owner="aviationstack_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:05.397447" level="INFO">${json} = {'pagination': {'limit': 10, 'offset': 0, 'count': 0, 'total': 0}, 'data': []}</msg>
+<var>${json}</var>
+<arg>${response_get.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.395998" elapsed="0.001764"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:05.399307" level="INFO">${data} = []</msg>
+<var>${data}</var>
+<arg>${json}</arg>
+<arg>data</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.398197" elapsed="0.001541"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<msg time="2026-01-15T16:13:05.401451" level="INFO">Length is 0.</msg>
+<arg>${data}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.400209" elapsed="0.001746"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:05.395302" elapsed="0.007090"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:04.722657" elapsed="0.680527"/>
+</test>
+<test id="s1-s1-s1-s1-t4" name="Error to get flights by date" line="33">
+<kw name="Given I have a valid AviationStack session" owner="aviationstack_keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:05.422720" level="INFO">Creating Session using : alias=aviation, url=https://api.aviationstack.com/v1, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>aviation</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-01-15T16:13:05.422283" elapsed="0.000762"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:05.421346" elapsed="0.001876"/>
+</kw>
+<kw name="Given I have a valid API key" owner="aviationstack_keywords">
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:05.424660" level="INFO">${API_KEY} = cfd77ccd4625cab36017fd91699579a1</msg>
+<arg>${API_KEY}</arg>
+<arg>${api_key}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.424209" elapsed="0.000600"/>
+</kw>
+<arg>cfd77ccd4625cab36017fd91699579a1</arg>
+<status status="PASS" start="2026-01-15T16:13:05.423707" elapsed="0.001232"/>
+</kw>
+<kw name="When I perform a GET request to flights endpoint" owner="aviationstack_keywords">
+<kw name="Set To Dictionary" owner="Collections">
+<msg time="2026-01-15T16:13:05.427387" level="INFO">${params} = {'limit': 10, 'flight_status': 'active', 'dep_iata': 'GRU', 'flight_date': '2026-01-15', 'access_key': 'cfd77ccd4625cab36017fd91699579a1'}</msg>
+<var>${params}</var>
+<arg>${query_params}</arg>
+<arg>access_key=${API_KEY}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.426570" elapsed="0.001000"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-01-15T16:13:05.905810" level="INFO">GET Request : url=https://api.aviationstack.com/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=GRU&amp;flight_date=2026-01-15&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ path_url=/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=GRU&amp;flight_date=2026-01-15&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-01-15T16:13:05.906448" level="INFO">GET Response : url=https://api.aviationstack.com/v1/flights?limit=10&amp;flight_status=active&amp;dep_iata=GRU&amp;flight_date=2026-01-15&amp;access_key=cfd77ccd4625cab36017fd91699579a1 
+ status=403, reason=Forbidden 
+ headers={'Date': 'Thu, 15 Jan 2026 19:13:05 GMT', 'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'cache-control': 'no-cache, private', 'x-apilayer-transaction-id': '24314ab0-3def-4935-8e7a-8cbfc61eb6b5', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'GET, POST, HEAD, OPTIONS', 'access-control-allow-headers': '*', 'x-quota-limit': '100', 'x-quota-remaining': '72', 'x-increment-usage': '1', 'cf-cache-status': 'DYNAMIC', 'Nel': '{"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}', 'Report-To': '{"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=oKxY0b1xNYMtMoMFpKdBTejLkGKJnwzjmWoF60Ibn1z%2BIt1J1qBp7Jeh%2FupFNkRXuPYcoYuBj8VTvK08jqh6F00k4wolVPvGakNQoqs0ecYZ6q0d"}]}', 'Content-Encoding': 'gzip', 'Server': 'cloudflare', 'CF-RAY': '9be7b03a9d74b92f-GRU'} 
+ body={"error":{"code":"function_access_restricted","message":"Your current subscription plan does not support this API function."}} 
+ </msg>
+<msg time="2026-01-15T16:13:05.907558" level="INFO">/Users/jfranccr/Documents/projetos/changelles/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.aviationstack.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-01-15T16:13:05.908267" level="INFO">${response_get} = &lt;Response [403]&gt;</msg>
+<var>${response_get}</var>
+<arg>${BASE_URL}${FLIGHTS_ENDPOINT}</arg>
+<arg>expected_status=${expected_status}</arg>
+<arg>verify=${False}</arg>
+<arg>params=${params}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.427831" elapsed="0.480739"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:05.910742" level="INFO">${response_get} = &lt;Response [403]&gt;</msg>
+<arg>${response_get}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.909102" elapsed="0.002386"/>
+</kw>
+<arg>{"limit": 10, "flight_status": "active", "dep_iata": "GRU", "flight_date": "2026-01-15"}</arg>
+<arg>403</arg>
+<status status="PASS" start="2026-01-15T16:13:05.425394" elapsed="0.486504"/>
+</kw>
+<kw name="Then response should contain authentication error" owner="aviationstack_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-15T16:13:05.917539" level="INFO">${json} = {'error': {'code': 'function_access_restricted', 'message': 'Your current subscription plan does not support this API function.'}}</msg>
+<var>${json}</var>
+<arg>${response_get.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.915200" elapsed="0.002752"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${json}</arg>
+<arg>error</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-01-15T16:13:05.918361" elapsed="0.000610"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:05.913321" elapsed="0.005923"/>
+</kw>
+<status status="PASS" start="2026-01-15T16:13:05.417320" elapsed="0.502314"/>
+</test>
+<status status="PASS" start="2026-01-15T16:13:03.000114" elapsed="2.933811"/>
+</suite>
+<status status="PASS" start="2026-01-15T16:13:02.995929" elapsed="2.943112"/>
+</suite>
+<status status="PASS" start="2026-01-15T16:13:02.984864" elapsed="2.961178"/>
+</suite>
+<status status="PASS" start="2026-01-15T16:13:02.940367" elapsed="3.010312"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Changelles" id="s1" pass="4" fail="0" skip="0">Changelles</stat>
+<stat name="Tests" id="s1-s1" pass="4" fail="0" skip="0">Changelles.Tests</stat>
+<stat name="Flights" id="s1-s1-s1" pass="4" fail="0" skip="0">Changelles.Tests.Flights</stat>
+<stat name="Get Flights Positive" id="s1-s1-s1-s1" pass="4" fail="0" skip="0">Changelles.Tests.Flights.Get Flights Positive</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
