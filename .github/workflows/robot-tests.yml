@@ -64,9 +64,3 @@ jobs:
             ]
           }" \
           ${{ secrets.SLACK_WEBHOOK_URL }}
-O que mudou aqui?
-title_link: Agora, ao clicar no título da mensagem no Slack, você será levado direto para a execução específica no GitHub Actions.
-
-Emoji dinâmico: Adicionamos um ícone ✅ ou ❌ para facilitar a leitura rápida.
-
-Markdown: Usamos *texto* para negrito e `texto` para código dentro da mensagem do Slack.
