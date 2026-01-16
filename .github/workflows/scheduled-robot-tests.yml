@@ -1,0 +1,94 @@
+name: Scheduled Robot Framework Tests
+
+on:
+  schedule:
+    # 0 12 * * 1-5 -> Executa às 12:00 UTC (09:00 Horário de Brasília) de Segunda a Sexta
+    - cron: '0 12 * * 1-5'
+  workflow_dispatch: # Mantém o botão manual para testes rápidos
+
+jobs:
+  robot-tests:
+    runs-on: ubuntu-latest
+     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Robot Framework tests
+        env:
+          AVIATIONSTACK_API_KEY: ${{ secrets.AVIATIONSTACK_API_KEY }}
+        run: |
+          robot \
+            --outputdir results \
+            tests/
+
+      - name: Upload Robot Framework report
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-report
+          path: results/
+
+      - name: Extract Robot Framework Results
+        if: always()
+        run: |
+          # Extrai os dados do XML usando Python
+          STATS=$(python3 -c "import xml.etree.ElementTree as ET; \
+            tree = ET.parse('results/output.xml'); \
+            root = tree.getroot(); \
+            stats = root.find('.//total/stat'); \
+            print(f'{stats.get(\"pass\")},{stats.get(\"fail\")},{stats.get(\"skip\")}')")
+          
+          # Salva em variáveis de ambiente do GitHub
+          echo "PASSED=$(echo $STATS | cut -d',' -f1)" >> $GITHUB_ENV
+          echo "FAILED=$(echo $STATS | cut -d',' -f2)" >> $GITHUB_ENV
+          echo "SKIPPED=$(echo $STATS | cut -d',' -f3)" >> $GITHUB_ENV
+          
+          # Calcula o tempo total de execução do Job (opcional, já que o GitHub mostra os 53s na tela)
+          # Mas aqui extraímos o tempo real de execução dos testes
+          echo "TEST_TIME=$(python3 -c \"import xml.etree.ElementTree as ET; tree = ET.parse('results/output.xml'); root = tree.getroot(); suite = root.find('.//suite'); print(suite.get('elapsed') if suite.get('elapsed') else 'N/A')\")\" >> $GITHUB_ENV
+
+      - name: Generate GitHub Step Summary
+        if: always()
+        run: |
+          echo "### 📊 Resultado dos Testes Robot" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | Quantidade |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| ✅ Passados | ${{ env.PASSED }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ❌ Falhos | ${{ env.FAILED }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| ⏭️ Pulados | ${{ env.SKIPPED }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Duração total dos testes:** ${{ env.TEST_TIME }}s" >> $GITHUB_STEP_SUMMARY
+
+      - name: Notify Slack
+        if: always()
+        run: |
+          if [ "${{ env.FAILED }}" == "0" ]; then
+            COLOR="good"
+            ICON="✅"
+          else
+            COLOR="danger"
+            ICON="❌"
+          fi
+
+          curl -X POST -H 'Content-type: application/json' \
+          --data "{
+            \"attachments\": [
+              {
+                \"color\": \"$COLOR\",
+                \"title\": \"$ICON Robot Framework: ${{ env.PASSED }} Passou | ${{ env.FAILED }} Falhou\",
+                \"title_link\": \"https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\",
+                \"text\": \"*Repositório:* ${{ github.repository }}\n*Ambiente:* \`${{ github.ref_name }}\`\n*Duração:* ${{ env.TEST_TIME }}s\n\n*Sumário:* ✅ ${{ env.PASSED }} | ❌ ${{ env.FAILED }} | ⏭️ ${{ env.SKIPPED }}\",
+                \"footer\": \"GitHub Actions Report\"
+              }
+            ]
+          }" \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
