@@ -4,7 +4,7 @@ on:
   schedule:
     # 0 12 * * 1-5 -> Executa às 12:00 UTC (09:00 Horário de Brasília) de Segunda a Sexta
     - cron: '0 12 * * 1-5'
-  workflow_dispatch: # Mantém o botão manual para testes rápidos
+  workflow_dispatch: 
 
 jobs:
   robot-tests:
